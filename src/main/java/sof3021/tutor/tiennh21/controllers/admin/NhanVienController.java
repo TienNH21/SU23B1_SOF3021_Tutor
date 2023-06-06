@@ -1,18 +1,25 @@
 package sof3021.tutor.tiennh21.controllers.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import sof3021.tutor.tiennh21.entities.NhanVien;
+import sof3021.tutor.tiennh21.repositories.NhanVienRepository;
 import sof3021.tutor.tiennh21.request.NhanVienVM;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Controller
 public class NhanVienController {
     private ArrayList<NhanVienVM> listNV;
+
+    @Autowired
+    private NhanVienRepository nvRepo;
 
     public NhanVienController()
     {
@@ -32,28 +39,33 @@ public class NhanVienController {
     @PostMapping("nhan-vien/store")
     public String store(NhanVienVM vm)
     {
-        System.out.println(vm.getNgaySinh().toString());
-        this.listNV.add(vm);
+        NhanVien nv = new NhanVien();
+        nv.setMa( vm.getMa() );
+        nv.setHo( vm.getHo() );
+        nv.setTenDem( vm.getTenDem() );
+        nv.setTen( vm.getTen() );
+        nv.setGioiTinh( vm.getGioiTinh() );
+        nv.setNgaySinh( vm.getNgaySinh() );
+        nv.setDiaChi( vm.getDiaChi() );
+        nv.setSdt( vm.getSdt() );
+        nv.setMatKhau( vm.getMatKhau() );
+        nv.setTrangThai( vm.getTrangThai() );
+        this.nvRepo.save(nv);
         return "admin/nhan_vien/create";
     }
 
     @GetMapping("nhan-vien/index")
     public String index(Model model)
     {
-        model.addAttribute("listNV", listNV);
+        model.addAttribute("listNV", this.nvRepo.findAll());
         return "admin/nhan_vien/index";
     }
 
-    @GetMapping("nhan-vien/delete/{ma}")
-    public String delete(@PathVariable("ma") String ma)
+    @GetMapping("nhan-vien/delete/{id}")
+    public String delete(@PathVariable("id") NhanVien nv)
     {
-        for (int i = 0; i < listNV.size(); i++) {
-            if (listNV.get(i).getMa().equals(ma)) {
-                this.listNV.remove(i);
-                break;
-            }
-        }
-
+//        NhanVien nv = this.nvRepo.findById(id).get();
+        this.nvRepo.delete(nv);
         return "redirect:/nhan-vien/index";
     }
 }

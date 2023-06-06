@@ -36,7 +36,7 @@
                     <a href="#">Cập nhật</a>
                 </td>
                 <td>
-                    <a href="/nhan-vien/delete/${ nv.ma }">Xóa</a>
+                    <a href="/nhan-vien/delete/${ nv.id }">Xóa</a>
                 </td>
             </tr>
         </c:forEach>

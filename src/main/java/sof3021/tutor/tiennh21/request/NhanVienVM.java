@@ -19,6 +19,6 @@ public class NhanVienVM {
     private String sdt;
     private Date ngaySinh;
     private String matKhau;
-    private String TrangThai;
+    private int TrangThai;
     private String diaChi;
 }

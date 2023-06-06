@@ -46,11 +46,11 @@
     </div>
     <div>
         <label>Trạng thái</label>
-        <input type="radio" name="trangThai" value="active"
-            ${ data.trangThai.equals("active") ? "selected" : "" } />
+        <input type="radio" name="trangThai" value="1"
+            ${ data.trangThai == 1 ? "selected" : "" } />
         <label>Đang hoạt động</label>
-        <input type="radio" name="trangThai" value="inactive"
-            ${ data.trangThai.equals("inactive") ? "selected" : "" } />
+        <input type="radio" name="trangThai" value="0"
+            ${ data.trangThai == 0 ? "selected" : "" } />
         <label>Không hoạt động</label>
     </div>
     <div>
